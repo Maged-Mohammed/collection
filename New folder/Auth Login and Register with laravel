@@ -1,0 +1,29 @@
+login & register with vue js => js framework to make single page application without making relood between pages
+
+composer require laravel/ui --dev  => make all views and roots without typing any thing
+composer require laravel/ui "^1.2"
+php artisan ui vue --auth          => make default auth to roots and method login & register
+npm installed && npm run dev       => node packaging manger make packaging to all nodes in one place
+php artisan ui vue --auth
+// then make database
+php artisan migrate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
