@@ -41,13 +41,46 @@ Route::get('/about', function () {
 });*/
 
 
+Auth::routes(['verify' => true]);
 
-Auth::routes(['verify'=>true]);
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
-Route::get('/home', 'HomeController@index')->name('home') ->middleware('verified');
-
-Route::get('/', function (){
+Route::get('/', function () {
     return view('welcome');
 });
+/*Route::get('/redirect/{service}','SocialController@redirect');
+Route::get('/redirect/{callback}','SocialController@callback');*/
 
+Route::get('fillable', 'CrudController@fillable');
+
+Route::group(['prefix' => LaravelLocalization::setLocale(),
+    'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
+
+    Route::group(['prefix' => 'offers'], function () {
+        //   Route::get('store', 'CrudController@store');
+        Route::get('create', 'CrudController@create');
+        Route::post('store', 'CrudController@store')->name('offers.store');
+
+        Route::get('edit/{offer_id}', 'CrudController@editOffer');
+        Route::post('update/{offer_id}', 'CrudController@UpdateOffer')->name('offers.update');
+        Route::get('delete/{offer_id}', 'CrudController@delete')->name('offers.delete');
+        Route::get('all', 'CrudController@getAllOffers')->name('offers.all');
+        Route::get('get-all-inactive-offer', 'CrudController@getAllInactiveOffers');
+    });
+    Route::get('youtube', 'CrudController@getVideo')->middleware('auth');
+});
+
+
+
+
+/*Route::group(['prefix' => 'offers'], function () {
+//    Route::get('store', 'CrudController@store');
+    Route::group(['prefix' =>  LaravelLocalization::setLocale(),
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']],
+        function () {
+            Route::get('create', 'CrudController@create');
+        });
+    Route::post('store', 'CrudController@store')->name('offers.store');
+
+});*/
 
